@@ -1,0 +1,4 @@
+Sandbox\Conference\Application\ReadModel\Controller\ConferenceController:
+    methods:
+        findAllAction: [app.open]
+        findOneByIdAction: [app.open]

@@ -1,0 +1,3 @@
+Sandbox\Security\Application\User\ReadModel\Controller\SecurityController:
+    methods:
+        findAuthenticatedUserAction: [app.open]

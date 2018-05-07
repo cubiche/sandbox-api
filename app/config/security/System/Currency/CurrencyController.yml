@@ -1,0 +1,6 @@
+Sandbox\System\Application\Currency\Controller\CurrencyController:
+    methods:
+        createAction: [app.currency.create]
+        updateNameAction: [app.currency.edit]
+        disableAction: [app.currency.edit]
+        enableAction: [app.currency.edit]

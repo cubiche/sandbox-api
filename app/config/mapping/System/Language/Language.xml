@@ -1,0 +1,10 @@
+<cubiche-mapping>
+
+    <aggregate-root name="Sandbox\System\Domain\Language\ReadModel\Language" collection="language">
+        <field fieldName="id" id="true" type="Sandbox\System\Domain\Language\LanguageId" />
+        <field fieldName="name" type="Cubiche\Domain\Localizable\LocalizableString" />
+        <field fieldName="code" type="Cubiche\Domain\Locale\LanguageCode" />
+        <field fieldName="enabled" type="boolean" />
+    </aggregate-root>
+    
+</cubiche-mapping>

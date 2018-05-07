@@ -1,0 +1,14 @@
+<cubiche-mapping>
+
+    <entity name="Sandbox\Security\Domain\User\ReadModel\User" collection="user">
+        <field fieldName="id" id="true" type="Sandbox\Security\Domain\User\UserId" />
+        <field fieldName="username" type="Cubiche\Domain\System\StringLiteral" />
+        <field fieldName="email" type="Cubiche\Domain\Web\EmailAddress" />
+        <field fieldName="emailVerificationToken" type="Cubiche\Domain\System\StringLiteral" />
+        <field fieldName="passwordResetToken" type="Cubiche\Domain\System\StringLiteral" />
+        <field fieldName="verified" type="boolean" />
+        <field fieldName="enabled" type="boolean" />
+        <field fieldName="permissions" type="Cubiche\Core\Collections\ArrayCollection\ArraySet[Cubiche\Domain\System\StringLiteral]" />
+    </entity>
+    
+</cubiche-mapping>

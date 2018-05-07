@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- projector -->
+        <service id="app.projector.role" class="Sandbox\Security\Domain\Role\ReadModel\Projection\RoleProjector" >
+            <argument type="service" id="app.query_repository.role"/>
+            <argument type="service" id="app.query_repository.permission"/>
+
+            <tag name="cubiche.domain.event_subscriber"/>
+        </service>
+
+        <!-- command handler -->
+        <service id="app.command_handler.role" class="Sandbox\Security\Domain\Role\RoleCommandHandler">
+            <argument type="service" id="app.repository.role"/>
+            <argument type="service" id="app.query_repository.permission"/>
+
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\Role\Command\CreateRoleCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\Role\Command\AddPermissionToRoleCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\Role\Command\RemovePermissionFromRoleCommand" />
+        </service>
+
+        <!-- query handler -->
+        <service id="app.query_handler.role" class="Sandbox\Security\Domain\Role\ReadModel\RoleQueryHandler">
+            <argument type="service" id="app.query_repository.role"/>
+
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\Role\ReadModel\Query\FindAllRoles" />
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\Role\ReadModel\Query\FindOneRoleById" />
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\Role\ReadModel\Query\FindOneRoleByName" />
+        </service>
+
+        <!-- validator asserter -->
+        <service id="cubiche.validator.role_asserter" class="Sandbox\Security\Domain\Role\Validator\Asserter">
+            <argument type="service" id="cubiche.query_bus" />
+            <argument type="service" id="app.service.security_context" />
+
+            <tag name="cubiche.validator.asserter" assert="uniqueRoleName" />
+        </service>
+    </services>
+</container>

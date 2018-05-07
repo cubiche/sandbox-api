@@ -1,0 +1,11 @@
+<cubiche-mapping>
+
+    <aggregate-root name="Sandbox\System\Domain\Currency\ReadModel\Currency" collection="currency">
+        <field fieldName="id" id="true" type="Sandbox\System\Domain\Currency\CurrencyId" />
+        <field fieldName="name" type="Cubiche\Domain\Localizable\LocalizableString" />
+        <field fieldName="code" type="Cubiche\Domain\System\StringLiteral" />
+        <field fieldName="symbol" type="Cubiche\Domain\System\StringLiteral" />
+        <field fieldName="enabled" type="boolean" />
+    </aggregate-root>
+    
+</cubiche-mapping>

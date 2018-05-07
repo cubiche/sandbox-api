@@ -1,0 +1,83 @@
+{
+    "name": "brm/api",
+    "license": "MIT",
+    "type": "project",
+    "description": "The brm-api project",
+    "autoload": {
+        "exclude-from-classmap": [
+            "src/**/Tests/"
+        ],
+        "psr-4": {
+            "Sandbox\\": "src/Sandbox",
+            "Behat\\": "src/Behat",
+            "AppBundle\\": "src/AppBundle"
+        },
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
+    },
+    "require": {
+        "php":                                      "^7.0|^7.1",
+
+        "cubiche/cubiche":                          "dev-master",
+        "csa/guzzle-bundle":                        "^3.0",
+        "firebase/php-jwt":                         "dev-master",
+        "goaop/goaop-symfony-bundle":               "^2.0@dev",
+        "incenteev/composer-parameter-handler":     "^2.0",
+        "sensio/distribution-bundle":               "^5.0.19",
+        "sensio/framework-extra-bundle":            "^5.0.2",
+        "symfony/intl":                             "^3.4",
+        "symfony/monolog-bundle":                   "^3.1.0",
+        "symfony/polyfill-apcu":                    "^1.0",
+        "symfony/swiftmailer-bundle":               "^2.6.4",
+        "symfony/symfony":                          "^3.4",
+        "twig/twig":                                "^1.0||^2.0",
+        "winzou/state-machine":                     "dev-master",
+        "youshido/graphql":                         "dev-master"
+    },
+    "require-dev": {
+        "codacy/coverage":                              "^1.4",
+        "cubiche/cqt":                                  "dev-master",
+        "cubiche/tests":                                "dev-master",
+        "behat/behat":                                  "^3.4.3",
+        "friends-of-behat/context-service-extension":   "dev-master",
+        "friends-of-behat/cross-container-extension":   "dev-master",
+        "friends-of-behat/symfony-extension":           "dev-master"
+    },
+    "scripts": {
+        "symfony-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap"
+        ],
+        "post-install-cmd": [
+            "@symfony-scripts",
+            "Cubiche\\Tools\\CodeQualityTool::checkHooks"
+        ],
+        "post-update-cmd": [
+            "@symfony-scripts",
+            "Cubiche\\Tools\\CodeQualityTool::checkHooks"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "3.3-dev"
+        }
+    }
+}

@@ -1,0 +1,7 @@
+api_graphql:
+    resource: "graphql.yml"
+    prefix: /
+
+ui_user:
+    resource: "user.yml"
+    prefix: /user

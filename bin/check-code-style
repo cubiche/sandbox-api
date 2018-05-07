@@ -1,0 +1,49 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * This file is part of the Sandbox application.
+ *
+ * Copyright (c) Cubiche
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+use Cubiche\Tools\CodeQualityTool;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+/**
+ * CodeStyleChecker class.
+ *
+ * @author Ivan Suárez Jerez <ivan@howaboutsales.com>
+ */
+class CodeStyleChecker extends CodeQualityTool
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function doRun(InputInterface $input, OutputInterface $output)
+    {
+        $this->input = $input;
+        $this->output = $output;
+
+        $output->writeln('<info>Checking code style</info>');
+        if (!$this->codeStyle('src/Sandbox')) {
+            throw new \Exception(sprintf('There are coding standards violations!'));
+        }
+
+        $output->writeln('<info>Checking code style with PHPCS</info>');
+        if (!$this->codeStylePsr('src/Sandbox')) {
+            throw new \Exception(sprintf('There are PHPCS coding standards violations!'));
+        }
+
+        $output->writeln('<info>Good job dude!</info>');
+    }
+}
+
+$application = new CodeStyleChecker();
+$application->run();

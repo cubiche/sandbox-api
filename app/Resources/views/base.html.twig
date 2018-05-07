@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/semantic-ui/2.2.9/semantic.min.css">
+        <style type="text/css">
+            .hidden.menu {
+                display: none;
+            }
+
+            body.pushable>.pusher {
+                padding-top: 72px;
+            }
+
+            .ui.vertical.stripe {
+                padding: 8em 0em;
+            }
+            .ui.vertical.stripe h3 {
+                font-size: 2em;
+            }
+            .ui.vertical.stripe .button + h3,
+            .ui.vertical.stripe p + h3 {
+                margin-top: 3em;
+            }
+            .ui.vertical.stripe .floated.image {
+                clear: both;
+            }
+            .ui.vertical.stripe p {
+                font-size: 1.33em;
+            }
+            .ui.vertical.stripe .horizontal.divider {
+                margin: 3em 0em;
+            }
+
+            .footer.segment {
+                padding: 5em 0em;
+            }
+        </style>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body data-gr-c-s-loaded="true" class="pushable" cz-shortcut-listen="true">
+        {% include 'header.html.twig' %}
+        <div class="pusher">
+            {% block body %}{% endblock %}
+            {% include 'footer.html.twig' %}
+        </div>
+        <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/semantic-ui/2.2.9/semantic.min.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

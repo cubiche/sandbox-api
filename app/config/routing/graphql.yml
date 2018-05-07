@@ -1,0 +1,4 @@
+api_graphql_endpoint:
+    path:     /graphql
+    defaults: { _controller: app.symfony_controller.api:graphqlAction }
+    methods:  [POST]

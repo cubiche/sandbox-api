@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- service -->
+        <service id="app.service.language_provider" class="Sandbox\System\Infrastructure\Language\Service\LanguageProvider" />
+
+        <!-- projector -->
+        <service id="app.projector.language" class="Sandbox\System\Domain\Language\ReadModel\Projection\LanguageProjector" >
+            <argument type="service" id="app.query_repository.language"/>
+
+            <tag name="cubiche.domain.event_subscriber"/>
+        </service>
+
+        <!-- command handler -->
+        <service id="app.command_handler.language" class="Sandbox\System\Domain\Language\LanguageCommandHandler">
+            <argument type="service" id="app.repository.language"/>
+
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Language\Command\CreateLanguageCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Language\Command\UpdateLanguageNameCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Language\Command\DisableLanguageCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Language\Command\EnableLanguageCommand" />
+        </service>
+
+        <!-- query handler -->
+        <service id="app.query_handler.language" class="Sandbox\System\Domain\Language\ReadModel\LanguageQueryHandler">
+            <argument type="service" id="app.query_repository.language"/>
+
+            <tag name="cubiche.query_handler" class="Sandbox\System\Domain\Language\ReadModel\Query\FindAllLanguages" />
+            <tag name="cubiche.query_handler" class="Sandbox\System\Domain\Language\ReadModel\Query\FindOneLanguageByCode" />
+        </service>
+
+        <service id="cubiche.validator.language_asserter" class="Sandbox\System\Domain\Language\Validator\Asserter">
+            <argument type="service" id="cubiche.query_bus" />
+
+            <tag name="cubiche.validator.asserter" assert="uniqueLanguageCode" />
+        </service>
+    </services>
+</container>

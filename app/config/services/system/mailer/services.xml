@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- factory -->
+        <service id="app.factory.email" class="Sandbox\System\Domain\Mailer\Service\EmailFactory" />
+
+        <!-- service -->
+        <service id="app.service.email_provider.configuration" class="Sandbox\System\Infrastructure\Mailer\Service\ConfigurationProvider">
+            <argument type="service" id="app.factory.email"/>
+            <argument>%app.mailer.sender_name%</argument>
+            <argument>%app.mailer.sender_address%</argument>
+            <argument>%app.mailer.emails%</argument>
+        </service>
+
+        <service id="app.service.email_renderer.twig" class="Sandbox\System\Infrastructure\Mailer\Service\TwigRenderer">
+            <argument type="service" id="twig"/>
+        </service>
+
+        <service id="app.service.email_sender.swiftmailer" class="Sandbox\System\Infrastructure\Mailer\Service\SwiftMailerSender">
+            <argument type="service" id="mailer"/>
+        </service>
+
+        <service id="app.service.email_provider" alias="app.service.email_provider.configuration" />
+        <service id="app.service.email_renderer" alias="app.service.email_renderer.twig" />
+        <service id="app.service.email_sender" alias="app.service.email_sender.swiftmailer" />
+
+        <service id="app.service.mailer" class="Sandbox\System\Domain\Mailer\Service\Mailer">
+            <argument type="service" id="app.service.email_provider"/>
+            <argument type="service" id="app.service.email_renderer"/>
+            <argument type="service" id="app.service.email_sender"/>
+        </service>
+
+        <!-- command handler -->
+        <service id="app.command_handler.mailer" class="Sandbox\System\Domain\Mailer\EmailCommandHandler">
+            <argument type="service" id="app.service.mailer"/>
+
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Mailer\Command\SendEmailCommand" />
+        </service>
+    </services>
+</container>

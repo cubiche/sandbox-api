@@ -1,0 +1,5 @@
+Sandbox\Security\Application\Role\Controller\RoleController:
+    methods:
+        createAction: [app.role.create]
+        addPermissionAction: [app.role.edit]
+        removePermissionAction: [app.role.edit]

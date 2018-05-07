@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- service -->
+        <service id="app.service.canonicalizer" class="Sandbox\Security\Domain\User\Service\Canonicalizer" />
+        <service id="app.service.salt_generator" class="Sandbox\Security\Domain\User\Service\SaltGenerator" />
+        <service id="app.service.token_generator" class="Sandbox\Security\Domain\User\Service\TokenGenerator" />
+        <service id="app.service.password_encoder" class="Sandbox\Security\Domain\User\Service\PasswordEncoder" />
+
+        <service id="app.service.security_context" class="Sandbox\Security\Application\User\Service\SecurityContext">
+            <argument type="service" id="app.service.token_context"/>
+        </service>
+
+        <!-- factory -->
+        <service id="app.factory.user" class="Sandbox\Security\Domain\User\Service\UserFactory">
+            <argument type="service" id="app.service.canonicalizer"/>
+            <argument type="service" id="app.service.password_encoder"/>
+            <argument type="service" id="app.service.salt_generator"/>
+        </service>
+
+        <!-- projector -->
+        <service id="app.projector.user" class="Sandbox\Security\Domain\User\ReadModel\Projection\UserProjector" >
+            <argument type="service" id="app.query_repository.user"/>
+            <argument type="service" id="app.query_repository.role"/>
+
+            <tag name="cubiche.domain.event_subscriber"/>
+        </service>
+
+        <!-- command handler -->
+        <service id="app.command_handler.user" class="Sandbox\Security\Domain\User\UserCommandHandler">
+            <argument type="service" id="app.repository.user"/>
+            <argument type="service" id="app.factory.user"/>
+            <argument type="service" id="app.service.token_generator"/>
+            <argument type="service" id="cubiche.query_bus"/>
+
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\CreateUserCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\AddUserRoleCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\RemoveUserRoleCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\ResetUserPasswordRequestCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\ResetUserPasswordCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\VerifyUserCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\DisableUserCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\EnableUserCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\LoginUserCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Domain\User\Command\LogoutUserCommand" />
+        </service>
+
+        <service id="app.command_handler.security" class="Sandbox\Security\Application\User\SecurityCommandHandler">
+            <argument type="service" id="app.query_repository.user"/>
+            <argument type="service" id="app.service.token_context"/>
+            <argument type="service" id="app.service.token_manager"/>
+
+            <tag name="cubiche.command_handler" class="Sandbox\Security\Application\User\Command\GenerateJWTCommand" />
+        </service>
+
+        <!-- query handler -->
+        <service id="app.query_handler.user" class="Sandbox\Security\Domain\User\ReadModel\UserQueryHandler">
+            <argument type="service" id="app.query_repository.user"/>
+            <argument type="service" id="app.service.canonicalizer"/>
+
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\User\ReadModel\Query\FindAllUsers" />
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\User\ReadModel\Query\FindOneUserByEmailVerificationToken" />
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\User\ReadModel\Query\FindOneUserByPasswordResetToken" />
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\User\ReadModel\Query\FindOneUserByUsername" />
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\User\ReadModel\Query\FindOneUserByEmail" />
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\User\ReadModel\Query\FindOneUserById" />
+        </service>
+
+        <!-- process manager -->
+        <service id="app.process_manager.user_register" class="Sandbox\Security\Application\User\ProcessManager\UserRegisterProcessManager">
+            <argument type="service" id="cubiche.command_bus"/>
+            <argument type="service" id="app.repository.process_manager.user_register_state"/>
+
+            <tag name="cubiche.domain.event_subscriber" />
+        </service>
+
+        <service id="app.process_manager.user_reset_password" class="Sandbox\Security\Application\User\ProcessManager\UserResetPasswordProcessManager">
+            <argument type="service" id="cubiche.command_bus"/>
+
+            <tag name="cubiche.domain.event_subscriber" />
+        </service>
+
+        <service id="app.process_manager.security" class="Sandbox\Security\Application\User\ProcessManager\SecurityProcessManager">
+            <argument type="service" id="cubiche.command_bus"/>
+
+            <tag name="cubiche.domain.event_subscriber" />
+        </service>
+
+        <!-- validator asserter -->
+        <service id="cubiche.validator.user_asserter" class="Sandbox\Security\Domain\User\Validator\Asserter">
+            <argument type="service" id="cubiche.query_bus" />
+
+            <tag name="cubiche.validator.asserter" assert="uniqueUsername" />
+            <tag name="cubiche.validator.asserter" assert="uniqueEmail" />
+        </service>
+    </services>
+</container>

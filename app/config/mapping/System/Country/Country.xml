@@ -1,0 +1,9 @@
+<cubiche-mapping>
+
+    <aggregate-root name="Sandbox\System\Domain\Country\ReadModel\Country" collection="country">
+        <field fieldName="id" id="true" type="Sandbox\System\Domain\Country\CountryId" />
+        <field fieldName="code" type="Cubiche\Domain\System\StringLiteral" />
+        <field fieldName="name" type="Cubiche\Domain\Localizable\LocalizableString" />
+    </aggregate-root>
+    
+</cubiche-mapping>

@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+    mongo:
+        ports:
+            - 27017:27017/tcp
+        image: mongo:3
+        volumes:
+            - mongodata:/data/db
+        stdin_open: true
+        container_name: sandbox-mongo
+
+    api:
+        ports:
+            - 80:80/tcp
+        image: cubiche/app:dev
+        environment:
+            SYMFONY__APP__DOMAIN: sandbox.local
+            SYMFONY__APP__DIRECTORY: sandbox-api
+            SYMFONY__ENV: dev
+            SYMFONY__MONGODB__SERVER: mongodb://mongo:27017
+        volumes:
+            - ./var/logs/nginx:/var/log/nginx/sandbox-api
+            - ./var/logs/php-fpm:/var/log/php-fpm
+            - ../:/var/www
+            - ./:/var/www/sandbox-api
+        container_name: sandbox-api
+
+volumes:
+    mongodata:

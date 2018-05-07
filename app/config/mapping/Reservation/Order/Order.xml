@@ -1,0 +1,11 @@
+<cubiche-mapping>
+
+    <aggregate-root name="Sandbox\Reservation\Domain\Order\ReadModel\Order" collection="order">
+        <field fieldName="id" id="true" type="Sandbox\Reservation\Domain\Order\OrderId" />
+        <field fieldName="userId" type="Sandbox\Security\Domain\User\UserId" />
+        <field fieldName="conferenceId" type="Sandbox\Conference\Domain\ConferenceId" />
+        <field fieldName="numberOfTickets" type="Cubiche\Domain\System\Integer" />
+        <field fieldName="state" type="Sandbox\Reservation\Domain\Order\OrderState" />
+    </aggregate-root>
+    
+</cubiche-mapping>

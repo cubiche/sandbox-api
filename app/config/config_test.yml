@@ -1,0 +1,26 @@
+imports:
+    - { resource: config_dev.yml }
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        collect: false
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+cubiche_core:
+    mongodb:
+        connections:
+            default:
+                database: %mongodb.database%_test
+                server: %mongodb.server%_test
+            event_store:
+                database: %mongodb.event_store.database%_test
+                server: %mongodb.server%_test
+            snapshot_store:
+                database: %mongodb.snapshot_store.database%_test
+                server: %mongodb.server%_test

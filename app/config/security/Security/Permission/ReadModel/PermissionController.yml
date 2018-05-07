@@ -1,0 +1,4 @@
+Sandbox\Security\Application\Permission\ReadModel\Controller\PermissionController:
+    methods:
+        findAllAction: [app.permission.list]
+        findOneByNameAction: [app.permission.view]

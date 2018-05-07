@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="app.behat.service.role.create" class="Behat\Service\Role\Mutation\CreateRoleService">
+            <argument type="service" id="__symfony__.csa_guzzle.client.local_test_api" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+
+        <service id="app.behat.service.role.add_permissions" class="Behat\Service\Role\Mutation\AddPermissionsToRoleService">
+            <argument type="service" id="__symfony__.csa_guzzle.client.local_test_api" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+
+        <service id="app.behat.service.role.remove_permissions" class="Behat\Service\Role\Mutation\RemovePermissionsFromRoleService">
+            <argument type="service" id="__symfony__.csa_guzzle.client.local_test_api" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+
+        <service id="app.behat.service.role.find_one" class="Behat\Service\Role\Query\FindOneRoleService">
+            <argument type="service" id="__symfony__.csa_guzzle.client.local_test_api" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+
+        <service id="app.behat.service.role.find_all" class="Behat\Service\Role\Query\FindAllRolesService">
+            <argument type="service" id="__symfony__.csa_guzzle.client.local_test_api" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+    </services>
+</container>

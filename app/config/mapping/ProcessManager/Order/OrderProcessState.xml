@@ -1,0 +1,9 @@
+<cubiche-mapping>
+
+    <entity name="Sandbox\Reservation\Application\Order\ProcessManager\OrderProcessState" collection="process_manager_order">
+        <field fieldName="id" id="true" type="Sandbox\Reservation\Domain\Order\OrderId" />
+        <field fieldName="conferenceId" type="Sandbox\Conference\Domain\ConferenceId" />
+        <field fieldName="state" type="Cubiche\Domain\System\StringLiteral" />
+    </entity>
+    
+</cubiche-mapping>

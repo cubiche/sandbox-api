@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!--  write model  -->
+        <service id="app.repository.seats_availability" class="Cubiche\Domain\EventSourcing\AggregateRepository">
+            <factory service="cubiche.event_store.aggregate_repository_factory" method="create" />
+            <argument>Sandbox\Reservation\Domain\SeatsAvailability\SeatsAvailability</argument>
+        </service>
+
+        <!--  read model  -->
+        <service id="app.query_repository.seats_availability" class="Cubiche\Infrastructure\Repository\MongoDB\DocumentQueryRepository">
+            <factory service="cubiche.repository.mongodb.document_query_repository_factory" method="create" />
+            <argument>Sandbox\Reservation\Domain\SeatsAvailability\ReadModel\SeatsAvailability</argument>
+        </service>
+
+        <service id="app.query_repository.confirmed_seats_reservation" class="Cubiche\Infrastructure\Repository\MongoDB\DocumentQueryRepository">
+            <factory service="cubiche.repository.mongodb.document_query_repository_factory" method="create" />
+            <argument>Sandbox\Reservation\Domain\SeatsAvailability\ReadModel\ConfirmedSeatsReservation</argument>
+        </service>
+    </services>
+</container>

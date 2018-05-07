@@ -1,0 +1,4 @@
+Sandbox\System\Application\Country\ReadModel\Controller\CountryController:
+    methods:
+        findAllAction: [app.country.list]
+        findOneByCodeAction: [app.country.view]

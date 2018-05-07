@@ -1,0 +1,9 @@
+<cubiche-mapping>
+
+    <aggregate-root name="Sandbox\Reservation\Domain\SeatsAvailability\ReadModel\ConfirmedSeatsReservation" collection="confirmed_seats_reservation">
+        <field fieldName="id" id="true" type="Sandbox\Reservation\Domain\SeatsAvailability\ReservationId" />
+        <field fieldName="conferenceId" type="Sandbox\Conference\Domain\ConferenceId" />
+        <field fieldName="numberOfSeats" type="Cubiche\Domain\System\Integer" />
+    </aggregate-root>
+    
+</cubiche-mapping>

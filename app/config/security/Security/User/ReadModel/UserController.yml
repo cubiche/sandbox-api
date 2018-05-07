@@ -1,0 +1,6 @@
+Sandbox\Security\Application\User\ReadModel\Controller\UserController:
+    permissions: []
+    methods:
+        findAllAction: [app.user.list]
+        findOneByPasswordResetTokenAction: [app.open]
+        findOneByIdAction: [app.open]

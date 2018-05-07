@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="app.controller.role" class="Sandbox\Security\Application\Role\Controller\RoleController">
+            <argument type="service" id="cubiche.command_bus" />
+        </service>
+
+        <service id="app.controller.read_model.role" class="Sandbox\Security\Application\Role\ReadModel\Controller\RoleController">
+            <argument type="service" id="cubiche.query_bus" />
+        </service>
+    </services>
+</container>

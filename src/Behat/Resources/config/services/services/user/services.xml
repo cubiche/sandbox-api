@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="app.behat.service.user.create" class="Behat\Service\User\Mutation\CreateUserService">
+            <argument type="service" id="__symfony__.csa_guzzle.client.local_test_api" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+        <service id="app.behat.service.user.disable" class="Behat\Service\User\Mutation\DisableUserService">
+            <argument type="service" id="__symfony__.csa_guzzle.client.local_test_api" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+        <service id="app.behat.service.user.enable" class="Behat\Service\User\Mutation\EnableUserService">
+            <argument type="service" id="__symfony__.csa_guzzle.client.local_test_api" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+    </services>
+</container>

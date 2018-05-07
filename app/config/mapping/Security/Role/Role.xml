@@ -1,0 +1,9 @@
+<cubiche-mapping>
+
+    <aggregate-root name="Sandbox\Security\Domain\Role\ReadModel\Role" collection="role">
+        <field fieldName="id" id="true" type="Sandbox\Security\Domain\Role\RoleId" />
+        <field fieldName="name" type="Cubiche\Domain\System\StringLiteral" />
+        <field fieldName="permissions" type="Cubiche\Core\Collections\ArrayCollection\ArraySet[Cubiche\Domain\System\StringLiteral]" />
+    </aggregate-root>
+
+</cubiche-mapping>

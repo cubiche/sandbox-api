@@ -1,0 +1,9 @@
+Sandbox\Security\Application\User\Controller\UserController:
+    permissions: []
+    methods:
+        createAction: [app.open]
+        resetPasswordRequestAction: [app.open]
+        resetPasswordAction: [app.open]
+        verifyAction: [app.open]
+        disableAction: [app.user.edit]
+        enableAction: [app.user.edit]

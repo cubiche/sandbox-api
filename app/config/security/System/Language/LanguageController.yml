@@ -1,0 +1,6 @@
+Sandbox\System\Application\Language\Controller\LanguageController:
+    methods:
+        createAction: [app.language.create]
+        updateNameAction: [app.language.edit]
+        disableAction: [app.language.edit]
+        enableAction: [app.language.edit]

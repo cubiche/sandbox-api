@@ -1,0 +1,3 @@
+Sandbox\Conference\Application\Controller\ConferenceController:
+    methods:
+        createAction: [app.conference.create]

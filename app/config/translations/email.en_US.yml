@@ -1,0 +1,21 @@
+email:
+    common:
+        unsubscribe: "If these emails get annoying, please feel free to <a href='%url%' target='_blank' style='color: #111111; font-weight: 700;'>unsubscribe</a>."
+        link_not_work: "If that doesn't work, copy and paste the following link in your browser:"
+        cheers: Cheers,<br>The %company% Team
+    user_verification_request:
+        subject: Confirm your %company% account
+        title: Thanks for signing up to %company%!
+        message: We are excited to have you on board!. To complete and confirm your registration, you need to verify your email address.
+        button: Confirm Account
+    user_registration_success:
+        subject: Welcome to %company%
+        title: Welcome %username%!
+        message: Thank you join to %company% Sandbox. Updates and new features are released often.
+        login_text: Log in and have fun using %company% Sandbox!
+        button: Get Started
+    user_reset_password_request:
+        subject: Password Reset
+        title: Let's Reset Your Password
+        message: "Hello <span style='font-weight: 700;'>%username%</span><br style='line-height: 30px;'/>You're receiving this email because we've received a request to reset your password. Just click the button below to finish resetting your password:"
+        button: Reset Password

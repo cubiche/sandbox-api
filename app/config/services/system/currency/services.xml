@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- service -->
+        <service id="app.service.currency_provider" class="Sandbox\System\Infrastructure\Currency\Service\CurrencyProvider" />
+        <service id="app.serializer.handler.money" class="Sandbox\System\Domain\Currency\Service\Serializer\MoneyHandler">
+            <tag name="cubiche.serializer_handler" />
+        </service>
+
+        <!-- projector -->
+        <service id="app.projector.currency" class="Sandbox\System\Domain\Currency\ReadModel\Projection\CurrencyProjector" >
+            <argument type="service" id="app.query_repository.currency"/>
+
+            <tag name="cubiche.domain.event_subscriber"/>
+        </service>
+
+        <!-- command handler -->
+        <service id="app.command_handler.currency" class="Sandbox\System\Domain\Currency\CurrencyCommandHandler">
+            <argument type="service" id="app.repository.currency"/>
+
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Currency\Command\CreateCurrencyCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Currency\Command\UpdateCurrencyNameCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Currency\Command\DisableCurrencyCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Currency\Command\EnableCurrencyCommand" />
+        </service>
+
+        <!-- query handler -->
+        <service id="app.query_handler.currency" class="Sandbox\System\Domain\Currency\ReadModel\CurrencyQueryHandler">
+            <argument type="service" id="app.query_repository.currency"/>
+
+            <tag name="cubiche.query_handler" class="Sandbox\System\Domain\Currency\ReadModel\Query\FindAllCurrencies" />
+            <tag name="cubiche.query_handler" class="Sandbox\System\Domain\Currency\ReadModel\Query\FindOneCurrencyByCode" />
+        </service>
+
+        <service id="cubiche.validator.currency_asserter" class="Sandbox\System\Domain\Currency\Validator\Asserter">
+            <argument type="service" id="cubiche.query_bus" />
+
+            <tag name="cubiche.validator.asserter" assert="currencyCode" />
+            <tag name="cubiche.validator.asserter" assert="uniqueCurrencyCode" />
+        </service>
+    </services>
+</container>

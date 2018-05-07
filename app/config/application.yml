@@ -1,0 +1,73 @@
+app:
+    sender:
+        name: Cubiche Sandbox
+        address: no-reply@cubiche.com
+    emails:
+        user_verification_request:
+            subject: emails.user_verification_request.subject
+            template: "Mailer/User/verificationRequest.html.twig"
+        user_registration_success:
+            subject: emails.user_registration_success.subject
+            template: "Mailer/User/registrationSuccess.html.twig"
+        user_reset_password_request:
+            subject: emails.user_reset_password_request.subject
+            template: "Mailer/User/resetPasswordRequest.html.twig"
+    access_control:
+        mappings:
+            conference_command:
+                prefix: Sandbox\Conference\Application\Controller
+                dir: "%kernel.root_dir%/config/security/Conference"
+            conference_query:
+                prefix: Sandbox\Conference\Application\ReadModel\Controller
+                dir: "%kernel.root_dir%/config/security/Conference/ReadModel"
+            payment_command:
+                prefix: Sandbox\Payment\Application\Controller
+                dir: "%kernel.root_dir%/config/security/Payment"
+            reservation_order_command:
+                prefix: Sandbox\Reservation\Application\Order\Controller
+                dir: "%kernel.root_dir%/config/security/Reservation/Order"
+            reservation_order_query:
+                prefix: Sandbox\Reservation\Application\Order\ReadModel\Controller
+                dir: "%kernel.root_dir%/config/security/Reservation/Order/ReadModel"
+            reservation_seats_availability_command:
+                prefix: Sandbox\Reservation\Application\SeatsAvailability\Controller
+                dir: "%kernel.root_dir%/config/security/Reservation/SeatsAvailability"
+            reservation_seats_availability_query:
+                prefix: Sandbox\Reservation\Application\SeatsAvailability\ReadModel\Controller
+                dir: "%kernel.root_dir%/config/security/Reservation/SeatsAvailability/ReadModel"
+            security_permission_query:
+                prefix: Sandbox\Security\Application\Permission\ReadModel\Controller
+                dir: "%kernel.root_dir%/config/security/Security/Permission/ReadModel"
+            security_role_command:
+                prefix: Sandbox\Security\Application\Role\Controller
+                dir: "%kernel.root_dir%/config/security/Security/Role"
+            security_role_query:
+                prefix: Sandbox\Security\Application\Role\ReadModel\Controller
+                dir: "%kernel.root_dir%/config/security/Security/Role/ReadModel"
+            security_user_command:
+                prefix: Sandbox\Security\Application\User\Controller
+                dir: "%kernel.root_dir%/config/security/Security/User"
+            security_user_query:
+                prefix: Sandbox\Security\Application\User\ReadModel\Controller
+                dir: "%kernel.root_dir%/config/security/Security/User/ReadModel"
+            system_country_command:
+                prefix: Sandbox\System\Application\Country\Controller
+                dir: "%kernel.root_dir%/config/security/System/Country"
+            system_country_query:
+                prefix: Sandbox\System\Application\Country\ReadModel\Controller
+                dir: "%kernel.root_dir%/config/security/System/Country/ReadModel"
+            system_currency_command:
+                prefix: Sandbox\System\Application\Currency\Controller
+                dir: "%kernel.root_dir%/config/security/System/Currency"
+            system_currency_query:
+                prefix: Sandbox\System\Application\Currency\ReadModel\Controller
+                dir: "%kernel.root_dir%/config/security/System/Currency/ReadModel"
+            system_language_command:
+                prefix: Sandbox\System\Application\Language\Controller
+                dir: "%kernel.root_dir%/config/security/System/Language"
+            system_language_query:
+                prefix: Sandbox\System\Application\Language\ReadModel\Controller
+                dir: "%kernel.root_dir%/config/security/System/Language/ReadModel"
+            system_mailer_command:
+                prefix: Sandbox\System\Application\Mailer\Controller
+                dir: "%kernel.root_dir%/config/security/System/Mailer"

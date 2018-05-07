@@ -1,0 +1,16 @@
+default:
+    suites:
+        authentication:
+            paths:
+                - '%paths.base%/src/Behat/Features/Security/Authentication'
+
+            contexts_services:
+                - app.behat.context.hook.cubiche_dabatase
+
+                - app.behat.context.background.user
+                - app.behat.context.background.authentication
+
+                - app.behat.context.scenario.authentication
+
+            filters:
+                tags: "@authentication"

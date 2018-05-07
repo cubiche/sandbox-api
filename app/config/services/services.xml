@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="app.symfony_controller.api" class="AppBundle\Controller\GraphQLController" />
+        <service id="app.symfony_controller.user" class="AppBundle\Controller\UserController" />
+
+        <service id="app.container.graphql" class="Sandbox\Core\Infrastructure\GraphQL\Container">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="app.event_listener.request_token" class="AppBundle\EventListener\RequestTokenEventListener">
+            <argument type="service" id="app.service.token_context" />
+
+            <tag name="kernel.event_listener" event="kernel.request"/>
+        </service>
+    </services>
+</container>

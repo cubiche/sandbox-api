@@ -1,0 +1,4 @@
+Sandbox\Security\Application\User\Controller\SecurityController:
+    methods:
+        loginAction: [app.open]
+        logoutAction: [app.open]

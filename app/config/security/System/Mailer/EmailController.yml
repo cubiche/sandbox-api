@@ -1,0 +1,3 @@
+Sandbox\System\Application\Mailer\Controller\EmailController:
+    methods:
+        sendAction: [app.open]

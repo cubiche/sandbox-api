@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * This file is part of the BRM package.
+ *
+ * Copyright (c) HowAboutSales
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+use Cubiche\Tools\CodeQualityTool;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+/**
+ * UnitTestsRunner class.
+ *
+ * @author Ivan Suárez Jerez <ivan@howaboutsales.com>
+ */
+class UnitTestsRunner extends CodeQualityTool
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function doRun(InputInterface $input, OutputInterface $output)
+    {
+        $this->input = $input;
+        $this->output = $output;
+
+        $output->writeln('<info>Running unit tests</info>');
+        if (!$this->unitTests($input->getFirstArgument())) {
+            throw new \Exception('Fix the unit tests!');
+        }
+
+        $output->writeln('<info>Good job dude!</info>');
+    }
+}
+
+$application = new UnitTestsRunner();
+$application->run();

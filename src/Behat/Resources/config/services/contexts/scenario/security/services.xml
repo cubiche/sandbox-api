@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="app.behat.context.scenario.authentication" class="Behat\Context\Scenario\Security\AuthenticationContext">
+            <argument type="service" id="app.behat.service.authentication.login_user" />
+            <argument type="service" id="app.behat.service.authentication.logout_user" />
+            <argument type="service" id="app.behat.service.authentication.authenticated_user" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+
+        <service id="app.behat.context.scenario.role" class="Behat\Context\Scenario\Security\RoleContext">
+            <argument type="service" id="app.behat.service.role.create" />
+            <argument type="service" id="app.behat.service.role.add_permissions" />
+            <argument type="service" id="app.behat.service.role.remove_permissions" />
+            <argument type="service" id="app.behat.service.role.find_one" />
+            <argument type="service" id="app.behat.service.role.find_all" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+
+        <service id="app.behat.context.scenario.user" class="Behat\Context\Scenario\Security\UserContext">
+            <argument type="service" id="app.behat.service.user.disable" />
+            <argument type="service" id="app.behat.service.user.enable" />
+            <argument type="service" id="app.behat.service.user.create" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+    </services>
+</container>

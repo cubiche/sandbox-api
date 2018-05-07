@@ -1,0 +1,8 @@
+<cubiche-mapping>
+
+    <entity name="Sandbox\Security\Application\User\ProcessManager\UserRegisterProcessState" collection="process_manager_user_register">
+        <field fieldName="id" id="true" type="Sandbox\Security\Domain\User\UserId" />
+        <field fieldName="state" type="Cubiche\Domain\System\StringLiteral" />
+    </entity>
+    
+</cubiche-mapping>

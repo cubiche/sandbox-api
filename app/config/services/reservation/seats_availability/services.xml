@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- projector -->
+        <service id="app.projector.seats_availability" class="Sandbox\Reservation\Domain\SeatsAvailability\ReadModel\Projection\SeatsAvailabilityProjector" >
+            <argument type="service" id="app.query_repository.seats_availability"/>
+
+            <tag name="cubiche.domain.event_subscriber"/>
+        </service>
+
+        <service id="app.projector.confirmed_seats_reservation" class="Sandbox\Reservation\Domain\SeatsAvailability\ReadModel\Projection\ConfirmedSeatsReservationProjector" >
+            <argument type="service" id="app.query_repository.confirmed_seats_reservation"/>
+
+            <tag name="cubiche.domain.event_subscriber"/>
+        </service>
+
+        <!-- command handler -->
+        <service id="app.command_handler.seats_availability" class="Sandbox\Reservation\Domain\SeatsAvailability\SeatsAvailabilityCommandHandler">
+            <argument type="service" id="app.repository.seats_availability"/>
+            <argument type="service" id="app.query_repository.permission"/>
+
+            <tag name="cubiche.command_handler" class="Sandbox\Reservation\Domain\SeatsAvailability\Command\CreateSeatsAvailabilityCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Reservation\Domain\SeatsAvailability\Command\MakeSeatReservationCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Reservation\Domain\SeatsAvailability\Command\CancelSeatReservationCommand" />
+            <tag name="cubiche.command_handler" class="Sandbox\Reservation\Domain\SeatsAvailability\Command\CommitSeatReservationCommand" />
+        </service>
+
+        <!-- query handler -->
+        <service id="app.query_handler.seats_availability" class="Sandbox\Reservation\Domain\SeatsAvailability\ReadModel\SeatsAvailabilityQueryHandler">
+            <argument type="service" id="app.query_repository.seats_availability"/>
+
+            <tag name="cubiche.query_handler" class="Sandbox\Reservation\Domain\SeatsAvailability\ReadModel\Query\FindOneSeatsAvailabilityById" />
+        </service>
+    </services>
+</container>

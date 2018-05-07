@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!--  write model  -->
+        <service id="app.repository.country" class="Cubiche\Domain\EventSourcing\AggregateRepository">
+            <factory service="cubiche.event_store.aggregate_repository_factory" method="create" />
+            <argument>Sandbox\System\Domain\Country\Country</argument>
+        </service>
+
+        <!--  read model  -->
+        <service id="app.query_repository.country" class="Cubiche\Infrastructure\Repository\MongoDB\DocumentQueryRepository">
+            <factory service="cubiche.repository.mongodb.document_query_repository_factory" method="create" />
+            <argument>Sandbox\System\Domain\Country\ReadModel\Country</argument>
+        </service>
+    </services>
+</container>

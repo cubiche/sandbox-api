@@ -1,0 +1,20 @@
+default:
+    suites:
+        managing_roles:
+            paths:
+                - '%paths.base%/src/Behat/Features/Security/Role'
+
+            contexts_services:
+                - app.behat.context.hook.cubiche_dabatase
+
+                - app.behat.context.transform.role
+                - app.behat.context.transform.permission
+
+                - app.behat.context.background.role
+                - app.behat.context.background.user
+                - app.behat.context.background.authentication
+
+                - app.behat.context.scenario.role
+
+            filters:
+                tags: "@role"

@@ -1,0 +1,6 @@
+Sandbox\Reservation\Application\Order\ReadModel\Controller\OrderController:
+    methods:
+        findAllAction: [app.order.list]
+        findAllByUserIdAction: [app.order.list]
+        findAllByCurrentUserAction: [app.open]
+        findOneByIdAction: [app.order.view]

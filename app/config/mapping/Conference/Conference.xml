@@ -1,0 +1,13 @@
+<cubiche-mapping>
+
+    <aggregate-root name="Sandbox\Conference\Domain\ReadModel\Conference" collection="conference">
+        <field fieldName="id" id="true" type="Sandbox\Conference\Domain\ConferenceId" />
+        <field fieldName="name" type="Cubiche\Domain\Localizable\LocalizableString" />
+        <field fieldName="city" type="Cubiche\Domain\Localizable\LocalizableString" />
+        <field fieldName="country" type="Cubiche\Domain\Localizable\LocalizableString" />
+        <field fieldName="availableTickets" type="Cubiche\Domain\System\Integer" />
+        <field fieldName="price" type="Sandbox\System\Domain\Currency\Money" />
+        <field fieldName="date" type="Cubiche\Domain\System\DateTime\DateRange" />
+    </aggregate-root>
+
+</cubiche-mapping>

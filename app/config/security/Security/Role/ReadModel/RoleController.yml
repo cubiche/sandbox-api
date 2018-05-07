@@ -1,0 +1,5 @@
+Sandbox\Security\Application\Role\ReadModel\Controller\RoleController:
+    methods:
+        findAllAction: [app.open]
+        findOneByIdAction: [app.open]
+        findOneByNameAction: [app.open]

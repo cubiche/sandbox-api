@@ -1,0 +1,4 @@
+imports:
+    - suites/security/authentication.yml
+    - suites/security/role.yml
+    - suites/security/user.yml

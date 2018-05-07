@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- query handler -->
+        <service id="app.query_handler.permission" class="Sandbox\Security\Domain\Permission\ReadModel\PermissionQueryHandler">
+            <argument type="service" id="app.query_repository.permission"/>
+
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\Permission\ReadModel\Query\FindAllPermissions" />
+            <tag name="cubiche.query_handler" class="Sandbox\Security\Domain\Permission\ReadModel\Query\FindOnePermissionByName" />
+        </service>
+    </services>
+</container>

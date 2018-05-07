@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        :not(.images) > .wireframe.image:last-child {
+            margin-bottom: 0em;
+        }
+        :not(.images) > .wireframe.image {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .ui.modal>.content {
+            padding: 0 !important;
+        }
+        @media only screen and (min-width: 1920px) {
+            .ui.large.modal {
+                width: 1280px !important;
+                margin: -640px 0 0 -640px !important;
+            }
+            .ui.medium.modal {
+                width: 768px !important;
+                margin: -384px 0 0 -384px !important;
+            }
+            .ui.small.modal {
+                width: 360px !important;
+                margin: -280px 0 0 -180px !important;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="ui vertical padded segment">
+        <div class="ui container">
+            <div class="ui breadcrumb">
+                <a class="section" href="/">Home</a>
+                <div class="divider"> / </div>
+                {% if directory is not null %}
+                    <a class="section" href="{{ path('email_templates') }}">Emails</a>
+                    <div class="divider"> / </div>
+                    <div class="active section">{{ directory }}</div>
+                {% else %}
+                    <div class="active section">Emails</div>
+                {% endif %}
+            </div>
+
+            <h1 class="ui header">
+                Emails
+                <div class="sub header">
+                    A list of the email templates in the system
+                </div>
+            </h1>
+        </div>
+    </div>
+
+    <div class="ui vertical stripe segment">
+        <div class="ui container">
+            {% if content is defined %}
+                <iframe srcdoc="{{ content }}" style="display:block;width:100%; height: 700px; border: none"></iframe>
+            {% else %}
+                <div class="ui four doubling stackable cards">
+                    {% for directoryName, count in directories %}
+                        <div class="card">
+                            <div class="content">
+                                <div class="header">{{ directoryName }}</div>
+                                <div class="meta">
+                                    {{ count }} templates.
+                                </div>
+                                <img class="ui wireframe image" src="{{ asset('static/img/template.svg') }}">
+                            </div>
+                            <div class="ui bottom attached button">
+                                <a href="{{ path('email_templates', {'directory': directoryName}) }}">View templates</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for name, template in templates %}
+                        <div class="card">
+                            <div class="content">
+                                <div class="header">{{ name }}</div>
+                                <img class="ui wireframe image" src="{{ asset('static/img/template.svg') }}">
+                            </div>
+                            <div class="ui three bottom attached basic buttons">
+                                <div class="ui button modal-trigger" data-size="large" data-width="1280" data-height="1024" data-source="{{ url('email_template_render', { 'directory': directory, 'template': template }) }}">
+                                    Desktop
+                                </div>
+                                <div class="ui button modal-trigger" data-size="medium" data-width="768" data-height="1024" data-source="{{ url('email_template_render', { 'directory': directory, 'template': template }) }}">
+                                    Tablet
+                                </div>
+                                <div class="ui button modal-trigger" data-size="small" data-width="360" data-height="640" data-source="{{ url('email_template_render', { 'directory': directory, 'template': template }) }}">
+                                    Mobile
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="ui inverted test modal scrolling">
+        <div class="header"></div>
+        <div class="content">
+            <div class="description">
+                <iframe id="source" style="display:block;border: none"></iframe>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('.modal-trigger').click(function () {
+            var screenWidth = $(this).data('width');
+            var screenHeight = $(this).data('height');
+            var source = $(this).data('source');
+            var size = $(this).data('size');
+
+            var device = $(this).text().trim();
+            var template = $(this).parents('.card').find('.header').text().trim();
+
+            $('.ui.modal > .header').html(template + ' - ' + device);
+            $('.ui.modal').removeClass('small medium large');
+            $('.ui.modal').addClass(size);
+
+            var iframe = $('.ui.modal #source');
+            iframe.width(screenWidth);
+            iframe.height(screenHeight);
+            iframe.attr('src', source);
+
+            $('.ui.modal')
+                .modal({
+                    inverted: true
+                })
+                .modal('show')
+            ;
+        })
+    </script>
+{% endblock %}

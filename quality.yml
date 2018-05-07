@@ -1,0 +1,27 @@
+phplint:
+    triggered_by: 'php'
+
+phpcsfixer:
+    fixers: ['-psr0','eof_ending','indentation','linefeed','lowercase_keywords','trailing_spaces','short_tag','php_closing_tag','extra_empty_lines','elseif','function_declaration', '-phpdoc_scalar', '-phpdoc_types']
+    triggered_by: 'php'
+
+phpcs:
+    standard: 'PSR2'
+    triggered_by: 'php'
+
+phpmd:
+    ruleset: ['controversial']
+    triggered_by: 'php'
+
+test:
+    suites:
+        security:
+            config_file: 'src/Sandbox/Security/.atoum.php'
+            bootstrap_file: ~
+            directories: ~
+            triggered_by: 'php'
+        system:
+            config_file: 'src/Sandbox/System/.atoum.php'
+            bootstrap_file: ~
+            directories: ~
+            triggered_by: 'php'

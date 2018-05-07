@@ -1,0 +1,4 @@
+Sandbox\System\Application\Language\ReadModel\Controller\LanguageController:
+    methods:
+        findAllAction: [app.language.list]
+        findOneByCodeAction: [app.language.view]

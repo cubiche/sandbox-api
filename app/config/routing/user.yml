@@ -1,0 +1,9 @@
+user_verify:
+    path:     /verify/{token}
+    defaults: { _controller: app.symfony_controller.user:verifyAction }
+    methods:  [GET]
+
+user_reset_request:
+    path:     /reset/{token}
+    defaults: { _controller: app.symfony_controller.user:resetAction }
+    methods:  [GET, POST]

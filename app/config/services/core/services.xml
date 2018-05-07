@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- access control metadata -->
+        <service id="app.access_control.metadata_driver.locator" class="%cubiche.metadata.default_locator.class%">
+            <argument>%app.access_control.prefixes%</argument>
+            <argument>%app.access_control.separator%</argument>
+        </service>
+
+        <service id="app.access_control.metadata_driver.yml" class="Sandbox\Core\Infrastructure\Metadata\Driver\YamlDriver">
+            <argument type="service" id="app.access_control.metadata_driver.locator"/>
+        </service>
+
+        <service id="app.access_control.metadata_driver" alias="app.access_control.metadata_driver.yml" />
+
+        <service id="app.access_control.metadata_factory" class="%cubiche.metadata.factory.class%">
+            <argument type="service" id="app.access_control.metadata_driver"/>
+            <argument type="service" id="cubiche.metadata.cache"/>
+        </service>
+
+        <!-- service -->
+        <service id="app.service.token_manager" class="Sandbox\Core\Application\Service\TokenManager">
+            <argument>api.%app.domain%</argument>
+            <argument>%app.domain%</argument>
+            <argument>%app.public_key%</argument>
+            <argument>%app.private_key%</argument>
+        </service>
+
+        <service id="app.service.token_context" class="Sandbox\Core\Infrastructure\Service\TokenContext">
+            <argument type="service" id="app.service.token_manager"/>
+        </service>
+
+        <service id="app.service.access_control_checker" class="Sandbox\Core\Application\Service\AccessControlChecker">
+            <argument type="service" id="app.service.token_context"/>
+        </service>
+
+        <service id="app.service.access_control_middleware" class="Sandbox\Core\Application\Service\AccessControlMiddleware">
+            <argument type="service" id="app.service.access_control_checker"/>
+
+            <tag name="cubiche.domain.event_subscriber"/>
+        </service>
+
+        <!-- aspect -->
+        <service id="app.aspect.access_control" class="Sandbox\Core\Infrastructure\Aspect\AccessControlAspect">
+            <argument type="service" id="app.access_control.metadata_factory"/>
+
+            <tag name="goaop.aspect"/>
+        </service>
+    </services>
+</container>

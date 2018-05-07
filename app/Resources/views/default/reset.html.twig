@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="ui vertical padded segment">
+        <div class="ui container">
+            <h1 class="ui header">
+                <div class="sub header">
+                    Reset password
+                </div>
+            </h1>
+        </div>
+
+    </div>
+    <div class="ui vertical stripe segment">
+        <div class="ui container">
+            {% if error is defined %}
+                <div class="ui negative message">
+                    <div class="header">
+                        Error
+                    </div>
+                    <p>{{ error }}</p>
+                </div>
+            {% else %}
+                <div class="ui success message">
+                    <div class="header">
+                        Great!
+                    </div>
+                    <p>Your password was reseted successful.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="app.controller.order" class="Sandbox\Reservation\Application\Order\Controller\OrderController">
+            <argument type="service" id="cubiche.command_bus" />
+
+            <call method="setTokenContext">
+                <argument type="service" id="app.service.token_context" />
+            </call>
+        </service>
+
+        <service id="app.controller.read_model.order" class="Sandbox\Reservation\Application\Order\ReadModel\Controller\OrderController">
+            <argument type="service" id="cubiche.query_bus" />
+
+            <call method="setTokenContext">
+                <argument type="service" id="app.service.token_context" />
+            </call>
+        </service>
+    </services>
+</container>

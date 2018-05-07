@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- service -->
+        <service id="app.service.country_provider" class="Sandbox\System\Infrastructure\Country\Service\CountryProvider" />
+
+        <!-- projector -->
+        <service id="app.country.projector" class="Sandbox\System\Domain\Country\ReadModel\Projection\CountryProjector" >
+            <argument type="service" id="app.query_repository.country"/>
+
+            <tag name="cubiche.domain.event_subscriber"/>
+        </service>
+
+        <!-- command handler -->
+        <service id="app.country.command_handler" class="Sandbox\System\Domain\Country\CountryCommandHandler">
+            <argument type="service" id="app.repository.country"/>
+
+            <tag name="cubiche.command_handler" class="Sandbox\System\Domain\Country\Command\CreateCountryCommand" />
+        </service>
+
+        <!-- query handler -->
+        <service id="app.country.query_handler" class="Sandbox\System\Domain\Country\ReadModel\CountryQueryHandler">
+            <argument type="service" id="app.query_repository.country"/>
+
+            <tag name="cubiche.query_handler" class="Sandbox\System\Domain\Country\ReadModel\Query\FindAllCountries" />
+            <tag name="cubiche.query_handler" class="Sandbox\System\Domain\Country\ReadModel\Query\FindOneCountryByCode" />
+        </service>
+
+        <service id="cubiche.validator.country_asserter" class="Sandbox\System\Domain\Country\Validator\Asserter">
+            <argument type="service" id="cubiche.query_bus" />
+
+            <tag name="cubiche.validator.asserter" assert="uniqueCountryCode" />
+        </service>
+    </services>
+</container>

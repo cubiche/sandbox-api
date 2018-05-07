@@ -1,0 +1,3 @@
+Sandbox\Payment\Application\Controller\PaymentController:
+    methods:
+        payAction: [app.payment.edit]

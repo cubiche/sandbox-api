@@ -1,0 +1,4 @@
+Sandbox\System\Application\Currency\ReadModel\Controller\CurrencyController:
+    methods:
+        findAllAction: [app.currency.list]
+        findOneByCodeAction: [app.currency.view]

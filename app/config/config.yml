@@ -1,0 +1,77 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: cubiche.yml }
+    - { resource: application.yml }
+
+framework:
+    #esi: ~
+    translator:
+        fallbacks: ['%app.default_locale%']
+        paths: ["%kernel.root_dir%/config/translations"]
+    secret: '%app.secret%'
+    router:
+        resource: '%kernel.root_dir%/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    serializer: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale: '%app.default_locale%'
+    trusted_hosts: ~
+    trusted_proxies: ~
+    session:
+        handler_id:  ~
+#        handler_id:  snc_redis.session.handler
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    globals:
+        app:
+            homepage: %app.domain%
+        company:
+            name: %app.company.name%
+            address: %app.company.address%
+
+swiftmailer:
+    transport: '%app.mailer_transport%'
+    host: '%app.mailer_host%'
+    username: '%app.mailer_user%'
+    password: '%app.mailer_password%'
+    spool: { type: memory }
+
+go_aop:
+    # Additional settings for the Go! AOP kernel initialization
+    options:
+        # Debug mode for the AOP, enable it for debugging and switch off for production mode to have a
+        # better runtime performance for your application
+        debug: %kernel.debug%
+
+        # Application root directory, AOP will be applied ONLY to the files in this directory, by default it's
+        # src/ directory of your application.
+        app_dir: "%kernel.root_dir%/../src"
+
+        # AOP cache directory where all transformed files will be stored.
+        cache_dir: %kernel.cache_dir%/aspect
+
+        # Whitelist is array of directories where AOP should be enabled, leave it empty to process all files
+        include_paths: []
+
+        # Exclude list is array of directories where AOP should NOT be enabled, leave it empty to process all files
+        exclude_paths: []
+
+        # AOP container class name can be used for extending AOP engine or services adjustment
+        container_class: Go\Core\GoAspectContainer
+
+        # List of enabled features for AOP kernel, this allows to enable function interception, support for
+        # read-only file systems, etc. Each item should be a name of constant from the `Go\Aop\Features` class.
+        features: []

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    {% block style %}
+        <style>
+            body {
+                height: 100%;
+                margin: 0;
+                width: 100%;
+                overflow: hidden;
+            }
+            .flex {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+
+            #graphiql {
+                flex: 1;
+            }
+            .jwt-token {
+                background: linear-gradient(#f7f7f7, #e2e2e2);
+                border-bottom: 1px solid #d0d0d0;
+                font-family: system, -apple-system, 'San Francisco', '.SFNSDisplay-Regular', 'Segoe UI', Segoe, 'Segoe WP', 'Helvetica Neue', helvetica, 'Lucida Grande', arial, sans-serif;
+                padding: 7px 14px 6px;
+                font-size: 14px;
+            }
+            .jwt-token input {
+                display: inline-block;
+                width: 40%;
+                padding: 5px;
+                border: 0px;
+                margin-left: 5px;
+                font-size: 12px;
+                color: #777777;
+                border-radius: 3px;
+            }
+
+            .jwt-token button#remove-token{
+                background: #fdfdfd;
+                background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#ececec));
+                background: linear-gradient(#f9f9f9, #ececec);
+                border-radius: 3px;
+                -webkit-box-shadow: inset 0 0 0 1px rgba(0,0,0,0.20), 0 1px 0 rgba(255,255,255, 0.7), inset 0 1px #fff;
+                box-shadow: inset 0 0 0 1px rgba(0,0,0,0.20), 0 1px 0 rgba(255,255,255, 0.7), inset 0 1px #fff;
+                color: #555;
+                cursor: pointer;
+                display: inline-block;
+                margin: 0 5px;
+                padding: 6px 11px 6px;
+                text-decoration: none;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                max-width: 150px;
+                border: 0;
+            }
+        </style>
+    <link href="https://unpkg.com/graphiql@{{ versions.graphiql }}/graphiql.css" rel="stylesheet">
+    {% endblock style %}
+        <script src="https://unpkg.com/whatwg-fetch@{{ versions.fetch }}/fetch.js"></script>
+        <script src="https://unpkg.com/react@{{ versions.react }}/dist/react.min.js"></script>
+        <script src="https://unpkg.com/react-dom@{{ versions.react }}/dist/react-dom.min.js"></script>
+        <script src="https://unpkg.com/graphiql@{{ versions.graphiql }}/graphiql.min.js"></script>
+        <title>{% block title %}GraphiQL{% endblock title %}</title>
+    {% endblock head %}
+</head>
+<body>
+{% block body %}
+    <div class="flex">
+        <div class="jwt-token">
+            <label>Json Web Token</label>
+            <input id="jwt-token" placeholder="Paste token (without Bearer)">
+            <button id="remove-token">✖</button>
+        </div>
+        <div id="graphiql">Loading...</div>
+    </div>
+
+    {% block body_script %}
+        <script>
+            document.getElementById('jwt-token').value = localStorage.getItem('graphiql:jwtToken');
+            var remove_token = document.getElementById('remove-token');
+            remove_token.onclick = function(){
+                localStorage.removeItem('graphiql:jwtToken');
+                document.getElementById('jwt-token').value = '';
+            }
+            var endpoint = {{ endpoint | json_encode | raw }}
+
+                function graphQLFetcher(params) {
+                    const jwtToken = document.getElementById('jwt-token').value;
+                    {% block fetcher_function_body %}
+                    var headers
+
+                    {% block graphql_fetcher_headers %}
+                    headers = {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    }
+                    {% endblock graphql_fetcher_headers %}
+
+                    if (jwtToken) {
+                        localStorage.setItem('graphiql:jwtToken', jwtToken);
+                        headers = {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': jwtToken ? `Bearer ${jwtToken}` : null
+                        };
+                    }
+                    return fetch(endpoint, {
+                            method: "post",
+                            headers: headers,
+                            body: JSON.stringify(params),
+                            credentials: 'include',
+                        }).then((res) => {
+                                {% block post_fetch %}{% endblock post_fetch %}
+                            return res.text()
+                        }).then((body) => {
+                        try {
+                            return JSON.parse(body)
+                        } catch (err) {
+                            return body
+                        }
+                    })
+                    {% endblock fetcher_function_body %}
+                }
+
+            ReactDOM.render(
+                React.createElement(GraphiQL, {
+                    fetcher: graphQLFetcher
+                }),
+                document.getElementById('graphiql')
+            )
+        </script>
+    {% endblock body_script %}
+{% endblock body %}
+</body>
+</html>

@@ -1,0 +1,65 @@
+cubiche_core:
+    mongodb:
+        connections:
+            default:
+                database: %mongodb.database%
+                server: %mongodb.server%
+            event_store:
+                database: %mongodb.event_store.database%
+                server: %mongodb.server%
+            snapshot_store:
+                database: %mongodb.snapshot_store.database%
+                server: %mongodb.server%
+    metadata:
+        cache_dir: %kernel.cache_dir%/cubiche
+        mappings:
+            conference:
+                type: xml
+                prefix: Sandbox\Conference\Domain\ReadModel
+                dir: "%kernel.root_dir%/config/mapping/Conference"
+                separator: /
+            reservation_order:
+                type: xml
+                prefix: Sandbox\Reservation\Domain\Order\ReadModel
+                dir: "%kernel.root_dir%/config/mapping/Reservation/Order"
+                separator: /
+            reservation_seats_availability:
+                type: xml
+                prefix: Sandbox\Reservation\Domain\SeatsAvailability\ReadModel
+                dir: "%kernel.root_dir%/config/mapping/Reservation/SeatsAvailability"
+            system_language:
+                type: xml
+                prefix: Sandbox\System\Domain\Language\ReadModel
+                dir: "%kernel.root_dir%/config/mapping/System/Language"
+                separator: /
+            system_currency:
+                type: xml
+                prefix: Sandbox\System\Domain\Currency\ReadModel
+                dir: "%kernel.root_dir%/config/mapping/System/Currency"
+                separator: /
+            system_country:
+                type: xml
+                prefix: Sandbox\System\Domain\Country\ReadModel
+                dir: "%kernel.root_dir%/config/mapping/System/Country"
+                separator: /
+            security_role:
+                type: xml
+                prefix: Sandbox\Security\Domain\Role\ReadModel
+                dir: "%kernel.root_dir%/config/mapping/Security/Role"
+                separator: /
+            security_user:
+                type: xml
+                prefix: Sandbox\Security\Domain\User\ReadModel
+                dir: "%kernel.root_dir%/config/mapping/Security/User"
+                separator: /
+            user_process_manager_state:
+                type: xml
+                prefix: Sandbox\Security\Application\User\ProcessManager
+                dir: "%kernel.root_dir%/config/mapping/ProcessManager/User"
+                separator: /
+            order_process_manager_state:
+                type: xml
+                prefix: Sandbox\Reservation\Application\Order\ProcessManager
+                dir: "%kernel.root_dir%/config/mapping/ProcessManager/Order"
+                separator: /
+

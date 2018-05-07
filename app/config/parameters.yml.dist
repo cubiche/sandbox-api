@@ -1,0 +1,20 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    mongodb.database: sandbox
+    mongodb.event_store.database: sandbox_event_store
+    mongodb.snapshot_store.database: sandbox_snapshot_store
+    app.company.name: Sanbox
+    app.company.address: 'Sunny Barcelona :-)'
+    app.secret: ThisTokenIsNotSoSecretChangeIt
+    app.default_locale: en_US
+    app.available_locales: [en_US, es_ES, fr_FR]
+    app.default_currency: EUR
+    app.available_currencies: [EUR, GBP]
+    app.private_key: %kernel.project_dir%/app/Resources/cert/jwt-rsa-private.key
+    app.public_key: %kernel.project_dir%/app/Resources/cert/jwt-rsa-public.pem
+    app.mailer_transport: smtp
+    app.mailer_host: smtp.mailtrap.io
+    app.mailer_user: dba92edc4d0c8a
+    app.mailer_password: 5ec3a82c9b5b64

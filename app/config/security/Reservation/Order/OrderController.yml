@@ -1,0 +1,4 @@
+Sandbox\Reservation\Application\Order\Controller\OrderController:
+    methods:
+        createAction: [app.order.create]
+        expireAction: [app.order.edit]

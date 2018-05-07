@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="ui vertical stripe segment">
+        <div class="ui container">
+            <h1 class="ui header">Welcome back <span>{{ username }}</span></h1>
+            <p>Enter you new password in the fields below:</p>
+            <form class="ui form" method="POST">
+                <div class="field">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Password">
+                </div>
+                <div class="field">
+                    <label>Confirm password</label>
+                    <input type="password" name="confirm" placeholder="Confirm password">
+                </div>
+                <button class="ui button primary" type="submit">Reset</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

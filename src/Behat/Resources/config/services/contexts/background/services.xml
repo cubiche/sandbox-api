@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="app.behat.context.background.token" class="Behat\Context\Background\TokenContext">
+            <argument type="service" id="__symfony__.app.service.token_context" />
+            <argument type="service" id="__symfony__.app.service.token_manager" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+        </service>
+
+        <service id="app.behat.context.background.token_shared" class="Behat\Context\Background\TokenContext">
+            <argument type="service" id="__symfony_shared__.app.service.token_context" />
+            <argument type="service" id="__symfony__.app.service.token_manager" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+        </service>
+
+        <service id="app.behat.context.background.authentication" class="Behat\Context\Background\AuthenticationContext">
+            <argument type="service" id="app.behat.service.authentication.login_user" />
+            <argument type="service" id="app.behat.context.background.user" />
+            <argument type="service" id="app.behat.context.background.token_shared" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+
+        <service id="app.behat.context.background.role" class="Behat\Context\Background\RoleContext">
+            <argument type="service" id="__symfony__.cubiche.command_bus" />
+            <argument type="service" id="app.behat.context.background.token" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+
+        <service id="app.behat.context.background.user" class="Behat\Context\Background\UserContext">
+            <argument type="service" id="__symfony__.cubiche.command_bus" />
+            <argument type="service" id="app.behat.context.background.role" />
+            <argument type="service" id="app.behat.service.shared_storage" />
+
+            <tag name="fob.context_service" />
+        </service>
+    </services>
+</container>
