@@ -62,7 +62,7 @@ The ```app:install``` command creates the fixtures to be able to start using the
 
 The flow to be able to make a graphql query or mutation is the following:
 
-- Go to the graphiql endpoint (http://api.sandbox.local/graphql)
+- Go to the graphiql endpoint (http://api.sandbox.local/graphiql)
 - You need a user (you can use the "admin" or "customer" users or you can create it using the [command line]())
 - You can make login using the user credentials (you will get a Json Web Token)
 - You can make queries or mutations now filling the token input in graphiql using the JWT
