@@ -1,3 +1,3 @@
 Sandbox\Reservation\Application\SeatsAvailability\ReadModel\Controller\SeatsAvailabilityController:
     methods:
-        findOneByIdAction: [app.seats_availability.view]
+        findOneByIdAction: [app.open]

@@ -47,7 +47,7 @@ class FindOneSeatsAvailabilityById extends AbstractField
     public function resolve($value, array $args, ResolveInfo $info)
     {
         /** @var SeatsAvailabilityController $controller */
-        $controller = $info->getContainer()->get('app.controller.read_model.seatsAvailability');
+        $controller = $info->getContainer()->get('app.controller.read_model.seats_availability');
 
         return $controller->findOneByIdAction($args['conferenceId']);
     }

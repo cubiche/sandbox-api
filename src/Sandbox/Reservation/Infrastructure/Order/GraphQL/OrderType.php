@@ -12,6 +12,7 @@
 namespace Sandbox\Reservation\Infrastructure\Order\GraphQL;
 
 use Sandbox\Reservation\Domain\Order\ReadModel\Order;
+use Youshido\GraphQL\Execution\ResolveInfo;
 use Youshido\GraphQL\Type\NonNullType;
 use Youshido\GraphQL\Type\Object\AbstractObjectType;
 use Youshido\GraphQL\Type\Scalar\IdType;
@@ -41,6 +42,16 @@ class OrderType extends AbstractObjectType
                 'type' => new NonNullType(new StringType()),
                 'resolve' => function (Order $order, $args) {
                     return $order->conferenceId()->toNative();
+                },
+            ])
+            ->addField('conference', [
+                'type' => new NonNullType(new StringType()),
+                'resolve' => function (Order $order, $args, ResolveInfo $info) {
+                    /** @var SeatsAvailabilityController $controller */
+                    $controller = $info->getContainer()->get('app.controller.read_model.conference');
+                    $conference = $controller->findOneByIdAction($order->conferenceId()->toNative());
+
+                    return $conference->name()->toNative();
                 },
             ])
             ->addField('numberOfTickets', [

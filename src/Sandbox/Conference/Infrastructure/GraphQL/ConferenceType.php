@@ -12,6 +12,7 @@
 namespace Sandbox\Conference\Infrastructure\GraphQL;
 
 use Sandbox\Conference\Domain\ReadModel\Conference;
+use Youshido\GraphQL\Execution\ResolveInfo;
 use Youshido\GraphQL\Type\NonNullType;
 use Youshido\GraphQL\Type\Object\AbstractObjectType;
 use Youshido\GraphQL\Type\Scalar\DateType;
@@ -59,8 +60,12 @@ class ConferenceType extends AbstractObjectType
             ])
             ->addField('availableTickets', [
                 'type' => new NonNullType(new IntType()),
-                'resolve' => function (Conference $conference, $args) {
-                    return $conference->availableTickets()->toNative();
+                'resolve' => function (Conference $conference, $args, ResolveInfo $info) {
+                    /** @var SeatsAvailabilityController $controller */
+                    $controller = $info->getContainer()->get('app.controller.read_model.seats_availability');
+                    $seatsAvailability = $controller->findOneByIdAction($conference->id()->toNative());
+
+                    return $seatsAvailability->availableSeats()->toNative();
                 },
             ])
             ->addField('price', [
